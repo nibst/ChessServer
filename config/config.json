@@ -1,0 +1,25 @@
+{
+    "special_moves": [
+        {
+            "name": "Castle",
+            "identifier_func": "is_castle",
+            "validator_func": "validate_castle",
+            "creator_func": "create_castle_steps",
+            "enabled": true
+        },
+        {
+            "name": "En Passant",
+            "identifier_func": "is_en_passant",
+            "validator_func": "validate_en_passant",
+            "creator_func": "create_en_passant_steps",
+            "enabled": true
+        },
+        {
+            "name": "Pawn Promotion",
+            "identifier_func": "is_pawn_promotion",
+            "validator_func": "validate_pawn_promotion",
+            "creator_func": "create_pawn_promotion_steps",
+            "enabled": true
+        }
+    ]
+}
