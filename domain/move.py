@@ -9,8 +9,8 @@ class Move:
     """
 
     team: str
-    from_cell: Tuple[int, str]
-    to_cell: Tuple[int, str]
+    from_cell: Tuple[str, int]
+    to_cell: Tuple[str, int]
     additional_data: str
 
     def __init__(self, team, from_cell: str, to_cell: str, additional_data: str):
@@ -29,10 +29,10 @@ class Move:
     def get_team(self) -> str:
         return self.team
 
-    def get_cell_from(self) -> Tuple[int, str]:
+    def get_cell_from(self) -> Tuple[str, int]:
         return self.from_cell
 
-    def get_cell_to(self) -> Tuple[int, str]:
+    def get_cell_to(self) -> Tuple[str, int]:
         return self.to_cell
 
     def get_additional_data(self) -> str:

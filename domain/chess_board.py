@@ -39,26 +39,26 @@ class ChessBoard:
             raise IllegalMoveException(f'Invalid column: {col}')
         return index
 
-    def is_in_bounds(self, cell: Tuple[int, str]) -> bool:
+    def is_in_bounds(self, cell: Tuple[str, int]) -> bool:
         try:
-            self._convert_row_to_index(cell[0])
-            self._convert_col_to_index(cell[1])
+            self._convert_row_to_index(cell[1])
+            self._convert_col_to_index(cell[0])
             return True
         except IllegalMoveException:
             return False
 
-    def get_cell(self, cell: Tuple[int, str]) -> str:
+    def get_cell(self, cell: Tuple[str, int]) -> str:
         return self._get_cell(cell[0], cell[1])
 
-    def _get_cell(self, row: int, col: str) -> str:
+    def _get_cell(self, col: str, row: int,) -> str:
         row_index = self._convert_row_to_index(row)
         col_index = self._convert_col_to_index(col)
         return self.board[row_index][col_index]
 
-    def set_cell(self, cell: Tuple[int, str], piece: str):
+    def set_cell(self, cell: Tuple[str, int], piece: str):
         self._set_cell(cell[0], cell[1], piece)
 
-    def _set_cell(self, row: int, col: str, piece: str):
+    def _set_cell(self, col: str, row: int, piece: str):
         row_index = self._convert_row_to_index(row)
         col_index = self._convert_col_to_index(col)
         self.board[row_index][col_index] = piece

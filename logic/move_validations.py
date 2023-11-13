@@ -5,7 +5,7 @@ from domain.teams import TeamEnum
 from exception.illegal_move_exception import IllegalMoveException
 
 
-def _is_safe_diagonally(cell: Tuple[int, str], team: str, chess_board: ChessBoard) -> bool:
+def _is_safe_diagonally(cell: Tuple[str, int], team: str, chess_board: ChessBoard) -> bool:
     diagonal_threats = TeamEnum[team].get_diagonal_threats()
     direction_operations = [[-1, -1], [-1, 1], [1, -1], [1, 1]]
 
@@ -19,14 +19,14 @@ def _is_safe_diagonally(cell: Tuple[int, str], team: str, chess_board: ChessBoar
                 else:
                     break
             checked_cell = tuple(
-                [checked_cell[0] + direction[0],
-                 chr(ord(checked_cell[1]) + direction[1])]
+                [chr(ord(checked_cell[0]) + direction[0]),
+                 checked_cell[1] + direction[1]]
             )
 
     return True
 
 
-def _is_safe_orthogonally(cell: Tuple[int, str], team: str, chess_board: ChessBoard) -> bool:
+def _is_safe_orthogonally(cell: Tuple[str, int], team: str, chess_board: ChessBoard) -> bool:
     orthogonal_threats = TeamEnum[team].get_orthogonal_threats()
     direction_operations = [[-1, 0], [1, 0], [0, -1], [0, 1]]
 
@@ -40,20 +40,20 @@ def _is_safe_orthogonally(cell: Tuple[int, str], team: str, chess_board: ChessBo
                 else:
                     break
             checked_cell = tuple(
-                [checked_cell[0] + direction[0],
-                    chr(ord(checked_cell[1]) + direction[1])]
+                [chr(ord(checked_cell[0]) + direction[0]),
+                 checked_cell[1] + direction[1]]
             )
 
     return True
 
 
-def _is_safe_from_pawns(cell: Tuple[int, str], team: str, chess_board: ChessBoard) -> bool:
+def _is_safe_from_pawns(cell: Tuple[str, int], team: str, chess_board: ChessBoard) -> bool:
     front = TeamEnum[team].get_front_direction()
     direction_operations = [[front, -1], [front, 1]]
     checked_cell = cell
     for direction in direction_operations:
         checked_cell = tuple(
-            [cell[0] + direction[0], chr(ord(cell[1]) + direction[1])]
+            [chr(ord(cell[0]) + direction[0]), cell[1] + direction[1] ]
         )
         if chess_board.is_in_bounds(checked_cell) \
                 and chess_board.get_cell(checked_cell) == TeamEnum[team].get_opponent_pawn_key():
@@ -62,14 +62,14 @@ def _is_safe_from_pawns(cell: Tuple[int, str], team: str, chess_board: ChessBoar
     return True
 
 
-def _is_safe_from_knights(cell: Tuple[int, str], team: str, chess_board: ChessBoard) -> bool:
+def _is_safe_from_knights(cell: Tuple[str, int], team: str, chess_board: ChessBoard) -> bool:
     direction_operations = [[2, -1], [2, 1], [-2, -1], [-2, 1],
                             [1, -2], [1, 2], [-1, -2], [-1, 2]]
 
     checked_cell = cell
     for direction in direction_operations:
         checked_cell = tuple(
-            [cell[0] + direction[0], chr(ord(cell[1]) + direction[1])]
+            [chr(ord(cell[0]) + direction[0]), cell[1] + direction[1]]
         )
         if chess_board.is_in_bounds(checked_cell) \
                 and chess_board.get_cell(checked_cell) == TeamEnum[team].get_opponent_knight_key():
@@ -78,7 +78,7 @@ def _is_safe_from_knights(cell: Tuple[int, str], team: str, chess_board: ChessBo
     return True
 
 
-def is_in_check(cell: Tuple[int, str], team: str, chess_board: ChessBoard) -> bool:
+def is_in_check(cell: Tuple[str, int], team: str, chess_board: ChessBoard) -> bool:
     """
     To verify if piece is in check:
     1. Check if orthogonally there are any rooks/queens
@@ -126,16 +126,16 @@ def validate_castle(move: Move, chess_board: ChessBoard, move_history: List[Move
         raise IllegalMoveException('You are in check, you cannot castle!')
 
     starting_cell = cell_from \
-        if ord(cell_from[1]) < ord(cell_to[1]) \
+        if ord(cell_from[0]) < ord(cell_to[0]) \
         else cell_to
 
     ending_cell = cell_from \
-        if ord(cell_from[1]) > ord(cell_to[1]) \
+        if ord(cell_from[0]) > ord(cell_to[0]) \
         else cell_to
 
-    for column in range(ord(starting_cell[1]) + 1, ord(ending_cell[1])):
-        if abs(ord(cell_from[1]) - column) <= 2:
-            checked_cell = tuple([starting_cell[0], chr(column)])
+    for column in range(ord(starting_cell[0]) + 1, ord(ending_cell[0])):
+        if abs(ord(cell_from[0]) - column) <= 2:
+            checked_cell = tuple([chr(column)], starting_cell[1])
             if chess_board.get_cell(checked_cell) != '.':
                 raise IllegalMoveException(
                     'There are pieces in the way, you cannot castle!')

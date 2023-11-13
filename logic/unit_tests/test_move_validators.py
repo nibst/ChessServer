@@ -25,129 +25,129 @@ class TestCheckValidator(unittest.TestCase):
 
     def test_is_in_check_diagonally_blacks(self):
         chess_board = ChessBoard()
-        chess_board._set_cell(7, 'a', 'k')
-        chess_board._set_cell(5, 'c', 'Q')
+        chess_board._set_cell('a', 7, 'k')
+        chess_board._set_cell('c', 5, 'Q')
         self.assertTrue(is_in_check(
-            tuple([7, 'a']),
+            tuple(['a', 7]),
             TeamEnum.BLACKS.value,
             chess_board
         ))
 
     def test_is_in_check_diagonally_whites(self):
         chess_board = ChessBoard()
-        chess_board._set_cell(3, 'd', 'K')
-        chess_board._set_cell(6, 'g', 'b')
+        chess_board._set_cell('d', 3, 'K')
+        chess_board._set_cell('g', 6, 'b')
         self.assertTrue(is_in_check(
-            tuple([3, 'd']),
+            tuple(['d', 3]),
             TeamEnum.WHITES.value,
             chess_board
         ))
 
     def test_is_in_check_orthogonally_whites(self):
         chess_board = ChessBoard()
-        chess_board._set_cell(3, 'h', 'K')
-        chess_board._set_cell(3, 'b', 'r')
-        chess_board._set_cell(1, 'g', '.')
+        chess_board._set_cell('h', 3, 'K')
+        chess_board._set_cell('b', 3, 'r')
+        chess_board._set_cell('g', 1, '.')
         self.assertTrue(is_in_check(
-            tuple([3, 'h']),
+            tuple(['h', 3]),
             TeamEnum.WHITES.value,
             chess_board
         ))
 
     def test_is_in_check_orthogonally_blacks(self):
         chess_board = ChessBoard()
-        chess_board._set_cell(6, 'b', 'k')
-        chess_board._set_cell(4, 'b', 'Q')
+        chess_board._set_cell('b', 6, 'k')
+        chess_board._set_cell('b', 4, 'Q')
         self.assertTrue(is_in_check(
-            tuple([6, 'b']),
+            tuple(['b', 6]),
             TeamEnum.BLACKS.value,
             chess_board
         ))
 
     def test_is_in_check_pawn_blacks(self):
         chess_board = ChessBoard()
-        chess_board._set_cell(3, 'f', 'k')
-        chess_board._set_cell(1, 'g', '.')
+        chess_board._set_cell('f', 3, 'k')
+        chess_board._set_cell('g', 1, '.')
         self.assertTrue(is_in_check(
-            tuple([3, 'f']),
+            tuple(['f', 3]),
             TeamEnum.BLACKS.value,
             chess_board
         ))
 
     def test_is_in_check_pawn_whites(self):
         chess_board = ChessBoard()
-        chess_board._set_cell(6, 'd', 'K')
+        chess_board._set_cell('d', 6, 'K')
         self.assertTrue(is_in_check(
-            tuple([6, 'd']),
+            tuple(['d', 6]),
             TeamEnum.WHITES.value,
             chess_board
         ))
 
     def test_is_in_check_knight_whites(self):
         chess_board = ChessBoard()
-        chess_board._set_cell(4, 'e', 'K')
-        chess_board._set_cell(6, 'f', 'n')
+        chess_board._set_cell('e', 4, 'K')
+        chess_board._set_cell('f', 6, 'n')
         self.assertTrue(is_in_check(
-            tuple([4, 'e']),
+            tuple(['e', 4]),
             TeamEnum.WHITES.value,
             chess_board
         ))
 
     def test_is_in_check_knight_blacks(self):
         chess_board = ChessBoard()
-        chess_board._set_cell(4, 'd', 'k')
-        chess_board._set_cell(5, 'b', 'N')
+        chess_board._set_cell('d', 4, 'k')
+        chess_board._set_cell('b', 5, 'N')
         self.assertTrue(is_in_check(
-            tuple([4, 'd']),
+            tuple(['d', 4]),
             TeamEnum.BLACKS.value,
             chess_board
         ))
 
     def test_is_not_in_check_piece_in_way_same_team_orthogonal(self):
         chess_board = ChessBoard()
-        chess_board._set_cell(4, 'e', 'q')
+        chess_board._set_cell('e', 4, 'q')
         self.assertFalse(is_in_check(
-            tuple([1, 'e']),
+            tuple(['e', 1]),
             TeamEnum.WHITES.value,
             chess_board
         ))
 
     def test_is_not_in_check_piece_in_way_other_team_orthogonal(self):
         chess_board = ChessBoard()
-        chess_board._set_cell(4, 'e', 'R')
-        chess_board._set_cell(4, 'c', 'B')
-        chess_board._set_cell(4, 'a', 'k')
+        chess_board._set_cell('e', 4, 'R')
+        chess_board._set_cell('c', 4, 'B')
+        chess_board._set_cell('a', 4, 'k')
         self.assertFalse(is_in_check(
-            tuple([4, 'a']),
+            tuple(['a', 4]),
             TeamEnum.BLACKS.value,
             chess_board
         ))
 
     def test_is_not_in_check_piece_in_way_same_team_diagonal(self):
         chess_board = ChessBoard()
-        chess_board._set_cell(5, 'b', 'B')
+        chess_board._set_cell('b', 5, 'B')
         self.assertFalse(is_in_check(
-            tuple([8, 'e']),
+            tuple(['e', 8]),
             TeamEnum.BLACKS.value,
             chess_board
         ))
 
     def test_is_not_in_check_piece_in_way_other_team_diagonal(self):
         chess_board = ChessBoard()
-        chess_board._set_cell(3, 'b', 'K')
-        chess_board._set_cell(6, 'e', 'q')
-        chess_board._set_cell(4, 'c', 'r')
+        chess_board._set_cell('b', 3, 'K')
+        chess_board._set_cell('e', 6, 'q')
+        chess_board._set_cell('c', 4, 'r')
         self.assertFalse(is_in_check(
-            tuple([3, 'b']),
+            tuple(['b', 3]),
             TeamEnum.WHITES.value,
             chess_board
         ))
 
     def test_is_not_in_check_no_pieces(self):
         chess_board = ChessBoard()
-        chess_board._set_cell(4, 'f', 'K')
+        chess_board._set_cell('f', 4, 'K')
         self.assertFalse(is_in_check(
-            tuple([4, 'f']),
+            tuple(['f', 4]),
             TeamEnum.WHITES.value,
             chess_board
         ))
@@ -157,10 +157,10 @@ class TestCastleValidate(unittest.TestCase):
 
     def test_can_move_whites_left(self):
         chess_board = ChessBoard()
-        chess_board._set_cell(1, 'b', '.')
-        chess_board._set_cell(1, 'c', '.')
-        chess_board._set_cell(1, 'd', '.')
-        move = Move('WHITES', '1e', '1a', None)
+        chess_board._set_cell('b', 1, '.')
+        chess_board._set_cell('c', 1, '.')
+        chess_board._set_cell('d', 1, '.')
+        move = Move('WHITES', 'e1', 'a1', None)
 
         validate_castle(move, chess_board, [])
 
@@ -168,9 +168,9 @@ class TestCastleValidate(unittest.TestCase):
 
     def test_can_move_blacks_right(self):
         chess_board = ChessBoard()
-        chess_board._set_cell(8, 'f', '.')
-        chess_board._set_cell(8, 'g', '.')
-        move = Move('BLACKS', '8e', '8h', None)
+        chess_board._set_cell('f', 8, '.')
+        chess_board._set_cell('g', 8, '.')
+        move = Move('BLACKS', 'e8', 'h8', None)
 
         validate_castle(move, chess_board, [])
 
@@ -178,14 +178,14 @@ class TestCastleValidate(unittest.TestCase):
 
     def test_cannot_move_passes_check(self):
         chess_board = ChessBoard()
-        chess_board._set_cell(8, 'b', '.')
-        chess_board._set_cell(8, 'c', '.')
-        chess_board._set_cell(8, 'd', '.')
-        chess_board._set_cell(7, 'b', '.')
-        chess_board._set_cell(7, 'c', '.')
-        chess_board._set_cell(7, 'd', '.')
-        chess_board._set_cell(6, 'b', 'B')
-        move = Move('BLACKS', '8e', '8a', None)
+        chess_board._set_cell('b', 8, '.')
+        chess_board._set_cell('c', 8, '.')
+        chess_board._set_cell('d', 8, '.')
+        chess_board._set_cell('b', 7, '.')
+        chess_board._set_cell('c', 7, '.')
+        chess_board._set_cell('d', 7, '.')
+        chess_board._set_cell('b', 6, 'B')
+        move = Move('BLACKS', 'e8', 'a8', None)
 
         self.assertRaises(
             IllegalMoveException,
@@ -197,14 +197,14 @@ class TestCastleValidate(unittest.TestCase):
 
     def test_cannot_move_in_check(self):
         chess_board = ChessBoard()
-        chess_board._set_cell(8, 'b', '.')
-        chess_board._set_cell(8, 'c', '.')
-        chess_board._set_cell(8, 'd', '.')
-        chess_board._set_cell(7, 'b', '.')
-        chess_board._set_cell(7, 'c', '.')
-        chess_board._set_cell(7, 'd', '.')
-        chess_board._set_cell(5, 'b', 'B')
-        move = Move('BLACKS', '8e', '8a', None)
+        chess_board._set_cell('b', 8, '.')
+        chess_board._set_cell('c', 8, '.')
+        chess_board._set_cell('d', 8, '.')
+        chess_board._set_cell('b', 7, '.')
+        chess_board._set_cell('c', 7, '.')
+        chess_board._set_cell('d', 7, '.')
+        chess_board._set_cell('b', 5, 'B')
+        move = Move('BLACKS', 'e8', 'a8', None)
 
         self.assertRaises(
             IllegalMoveException,
@@ -216,7 +216,7 @@ class TestCastleValidate(unittest.TestCase):
 
     def test_cannot_move_pieces_in_way(self):
         chess_board = ChessBoard()
-        move = Move('WHITES', '1e', '1h', None)
+        move = Move('WHITES', 'e1', 'h1', None)
 
         self.assertRaises(
             IllegalMoveException,
@@ -228,15 +228,15 @@ class TestCastleValidate(unittest.TestCase):
 
     def test_cannot_move_king_moved(self):
         chess_board = ChessBoard()
-        chess_board._set_cell(8, 'f', '.')
-        chess_board._set_cell(8, 'g', '.')
+        chess_board._set_cell('f', 8, '.')
+        chess_board._set_cell('g', 8, '.')
 
         move_history = []
-        move_history.append(Move('BLACKS', '8e', '8f', None))
-        move_history.append(Move('WHITES', '1a', '3a', None))
-        move_history.append(Move('BLACKS', '8f', '8e', None))
+        move_history.append(Move('BLACKS', 'e8', 'f8', None))
+        move_history.append(Move('WHITES', 'a1', 'a3', None))
+        move_history.append(Move('BLACKS', 'f8', 'e8', None))
 
-        move = Move('BLACKS', '8e', '8h', None)
+        move = Move('BLACKS', 'e8', 'h8', None)
         self.assertRaises(
             IllegalMoveException,
             validate_castle,
@@ -247,16 +247,16 @@ class TestCastleValidate(unittest.TestCase):
 
     def test_cannot_move_rook_moved(self):
         chess_board = ChessBoard()
-        chess_board._set_cell(1, 'b', '.')
-        chess_board._set_cell(1, 'c', '.')
-        chess_board._set_cell(1, 'd', '.')
+        chess_board._set_cell('b', 1, '.')
+        chess_board._set_cell('c', 1, '.')
+        chess_board._set_cell('d', 1, '.')
 
         move_history = []
-        move_history.append(Move('BLACKS', '1a', '1b', None))
-        move_history.append(Move('WHITES', '8g', '6h', None))
-        move_history.append(Move('BLACKS', '1b', '1a', None))
+        move_history.append(Move('BLACKS', 'a1', 'b1', None))
+        move_history.append(Move('WHITES', 'g8', 'h6', None))
+        move_history.append(Move('BLACKS', 'b1', 'a1', None))
 
-        move = Move('WHITES', '1e', '1a', None)
+        move = Move('WHITES', 'e1', 'a1', None)
         self.assertRaises(
             IllegalMoveException,
             validate_castle,

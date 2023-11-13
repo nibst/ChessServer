@@ -6,17 +6,17 @@ class TeamEnum(Enum):
     WHITES = "WHITES"
     BLACKS = "BLACKS"
 
-    def get_starting_king_cell(self) -> Tuple[int, str]:
+    def get_starting_king_cell(self) -> Tuple[str, int]:
         if self.value == "WHITES":
-            return tuple([1, 'e'])
+            return tuple(['e', 1])
         else:
-            return tuple([8, 'e'])
+            return tuple(['e', 8])
 
-    def get_starting_rook_cells(self) -> List[Tuple[int, str]]:
+    def get_starting_rook_cells(self) -> List[Tuple[str, int]]:
         if self.value == "WHITES":
-            return [tuple([1, 'h']), tuple([1, 'a'])]
+            return [tuple(['h', 1]), tuple(['a', 1,])]
         else:
-            return [tuple([8, 'h']), tuple([8, 'a'])]
+            return [tuple(['h', 8]), tuple(['a', 8])]
 
     def get_orthogonal_threats(self) -> List[str]:
         if self.value == "BLACKS":
