@@ -3,7 +3,30 @@ from domain.move import Move
 from domain.chess_board import ChessBoard
 
 def is_en_passant(move: Move, chess_board: ChessBoard) -> bool:
-    raise NotImplementedError()
+    """
+    1.Is a pawn move
+    2.Capturing pawn must be beside the captured pawn
+    3.Captured pawn must be of the opposite team
+    3.Final position must have a lateral distance = 1 and vertical distance = 1 compared to the original position
+    4.Final position must be empty before applying the move (maybe not necessary for en passant identifcation)
+    """
+    cell_from = move.get_cell_from()
+    cell_to = move.get_cell_to()
+    piece_at_destination_cell = chess_board.get_cell(cell_to)
+
+    moved_piece = chess_board.get_cell(cell_from)
+    eaten_piece_position =  tuple([cell_to[0],  cell_from[1]]) 
+    eaten_piece = chess_board.get_cell(eaten_piece_position)
+    from_team = TeamEnum.WHITES.value if moved_piece.isupper() else TeamEnum.BLACKS.value
+    to_team = TeamEnum.WHITES.value if eaten_piece.isupper() else TeamEnum.BLACKS.value
+    lateral_distance = abs(ord(cell_from[0]) - ord(cell_to[0]))
+    vertical_distance = abs(cell_from[1] - cell_to[1])
+    return  chess_board.get_cell(move.get_cell_from()).lower() == 'p' \
+        and (eaten_piece.lower() == 'p') \
+        and (from_team != to_team) \
+        and (lateral_distance == 1 and vertical_distance == 1) \
+        and (piece_at_destination_cell == '.') 
+ 
 
 
 def is_castle(move: Move, chess_board: ChessBoard) -> bool:

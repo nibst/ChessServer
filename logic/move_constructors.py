@@ -41,8 +41,32 @@ def create_en_passant_steps(move: Move) -> Callable[[ChessBoard], List[Move]]:
     """
     1. Create move from original source to captured pawn's position
     2. Create move from captured position to original destination
-    """
-    raise NotImplementedError()
+    """    
+    cell_from = move.get_cell_from()
+    cell_to = move.get_cell_to()
+    column_diff = ord(cell_from[0]) - ord(cell_to[0])
+    pawn_horizontal_direction = int(column_diff/abs(column_diff))
+    captured_pawn_position =  chr(ord(cell_from[0]) - pawn_horizontal_direction) + str(cell_from[1])
+
+    capture_move = Move(
+        move.get_team(),
+        cell_from[0] + str(cell_from[1]),
+        captured_pawn_position,
+        None
+    )
+    correct_destination_move = Move(
+        move.get_team(),
+        captured_pawn_position,
+        cell_to[0] + str(cell_to[1]),
+        None
+    )
+
+    def perform_en_passant(chess_board: ChessBoard) -> List[Move]:
+        chess_board.apply_move(capture_move)
+        chess_board.apply_move(correct_destination_move)
+        return[capture_move,correct_destination_move]
+    
+    return perform_en_passant
 
 
 def create_pawn_promotion_steps(move: Move) -> Callable[[ChessBoard], List[Move]]:
