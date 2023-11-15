@@ -31,10 +31,10 @@ class TestCastleConstructor(unittest.TestCase):
 
         execute_function = create_castle_steps(castle_move)
         execute_function(chess_board)
-        self.assertEquals('.', chess_board._get_cell(8, 'e'))
-        self.assertEquals('r', chess_board._get_cell(8, 'f'))
-        self.assertEquals('k', chess_board._get_cell(8, 'g'))
-        self.assertEquals('.', chess_board._get_cell(8, 'h'))
+        self.assertEquals('.', chess_board._get_cell('e', 8))
+        self.assertEquals('r', chess_board._get_cell('f', 8))
+        self.assertEquals('k', chess_board._get_cell('g', 8))
+        self.assertEquals('.', chess_board._get_cell('h', 8))
 
     def test_castle_left_blacks(self):
         chess_board = ChessBoard()
@@ -45,11 +45,11 @@ class TestCastleConstructor(unittest.TestCase):
 
         execute_function = create_castle_steps(castle_move)
         execute_function(chess_board)
-        self.assertEquals('.', chess_board._get_cell(8, 'a'))
-        self.assertEquals('.', chess_board._get_cell(8, 'b'))
-        self.assertEquals('k', chess_board._get_cell(8, 'c'))
-        self.assertEquals('r', chess_board._get_cell(8, 'd'))
-        self.assertEquals('.', chess_board._get_cell(8, 'e'))
+        self.assertEquals('.', chess_board._get_cell('a', 8))
+        self.assertEquals('.', chess_board._get_cell('b', 8))
+        self.assertEquals('k', chess_board._get_cell('c', 8))
+        self.assertEquals('r', chess_board._get_cell('d', 8))
+        self.assertEquals('.', chess_board._get_cell('e', 8))
 
     def test_castle_right_whites(self):
         chess_board = ChessBoard()
@@ -59,10 +59,10 @@ class TestCastleConstructor(unittest.TestCase):
 
         execute_function = create_castle_steps(castle_move)
         execute_function(chess_board)
-        self.assertEquals('.', chess_board._get_cell(1, 'e'))
-        self.assertEquals('R', chess_board._get_cell(1, 'f'))
-        self.assertEquals('K', chess_board._get_cell(1, 'g'))
-        self.assertEquals('.', chess_board._get_cell(1, 'h'))
+        self.assertEquals('.', chess_board._get_cell('e', 1))
+        self.assertEquals('R', chess_board._get_cell('f', 1))
+        self.assertEquals('K', chess_board._get_cell('g', 1))
+        self.assertEquals('.', chess_board._get_cell('h', 1))
 
     def test_castle_left_whites(self):
         chess_board = ChessBoard()
@@ -73,11 +73,11 @@ class TestCastleConstructor(unittest.TestCase):
 
         execute_function = create_castle_steps(castle_move)
         execute_function(chess_board)
-        self.assertEquals('.', chess_board._get_cell(1, 'a'))
-        self.assertEquals('.', chess_board._get_cell(1, 'b'))
-        self.assertEquals('K', chess_board._get_cell(1, 'c'))
-        self.assertEquals('R', chess_board._get_cell(1, 'd'))
-        self.assertEquals('.', chess_board._get_cell(1, 'e'))
+        self.assertEquals('.', chess_board._get_cell('a', 1))
+        self.assertEquals('.', chess_board._get_cell('b', 1))
+        self.assertEquals('K', chess_board._get_cell('c', 1))
+        self.assertEquals('R', chess_board._get_cell('d', 1))
+        self.assertEquals('.', chess_board._get_cell('e', 1))
 
 
 class TestEnPassantConstruction(unittest.TestCase):
@@ -90,10 +90,10 @@ class TestEnPassantConstruction(unittest.TestCase):
 
         execute_function = create_en_passant_steps(en_passant_move)
         execute_function(chess_board)
-        self.assertEquals('.', chess_board._get_cell(8, 'e'))
-        self.assertEquals('r', chess_board._get_cell(8, 'f'))
-        self.assertEquals('k', chess_board._get_cell(8, 'g'))
-        self.assertEquals('.', chess_board._get_cell(8, 'h'))
+        self.assertEquals('.', chess_board._get_cell('e', 8))
+        self.assertEquals('r', chess_board._get_cell('f', 8))
+        self.assertEquals('k', chess_board._get_cell('g', 8))
+        self.assertEquals('.', chess_board._get_cell('h', 8))
 
     def test_en_passant_left_blacks(self):
         chess_board = ChessBoard()
@@ -104,11 +104,11 @@ class TestEnPassantConstruction(unittest.TestCase):
 
         execute_function = create_en_passant_steps(en_passant_move)
         execute_function(chess_board)
-        self.assertEquals('.', chess_board._get_cell(8, 'a'))
-        self.assertEquals('.', chess_board._get_cell(8, 'b'))
-        self.assertEquals('k', chess_board._get_cell(8, 'c'))
-        self.assertEquals('r', chess_board._get_cell(8, 'd'))
-        self.assertEquals('.', chess_board._get_cell(8, 'e'))
+        self.assertEquals('.', chess_board._get_cell('a', 8))
+        self.assertEquals('.', chess_board._get_cell('b', 8))
+        self.assertEquals('k', chess_board._get_cell('c', 8))
+        self.assertEquals('r', chess_board._get_cell('d', 8))
+        self.assertEquals('.', chess_board._get_cell('e', 8))
 
     def test_en_passant_right_whites(self):
         chess_board = ChessBoard()
@@ -118,10 +118,10 @@ class TestEnPassantConstruction(unittest.TestCase):
 
         execute_function = create_en_passant_steps(en_passant_move)
         execute_function(chess_board)
-        self.assertEquals('.', chess_board._get_cell(1, 'e'))
-        self.assertEquals('R', chess_board._get_cell(1, 'f'))
-        self.assertEquals('K', chess_board._get_cell(1, 'g'))
-        self.assertEquals('.', chess_board._get_cell(1, 'h'))
+        self.assertEquals('.', chess_board._get_cell('e', 1))
+        self.assertEquals('R', chess_board._get_cell('f', 1))
+        self.assertEquals('K', chess_board._get_cell('g', 1))
+        self.assertEquals('.', chess_board._get_cell('h', 1))
 
     def test_en_passant_left_whites(self):
         chess_board = ChessBoard()
@@ -132,9 +132,9 @@ class TestEnPassantConstruction(unittest.TestCase):
 
         execute_function = create_en_passant_steps(en_passant_move)
         execute_function(chess_board)
-        self.assertEquals('.', chess_board._get_cell(1, 'a'))
-        self.assertEquals('.', chess_board._get_cell(1, 'b'))
-        self.assertEquals('K', chess_board._get_cell(1, 'c'))
-        self.assertEquals('R', chess_board._get_cell(1, 'd'))
-        self.assertEquals('.', chess_board._get_cell(1, 'e'))    
+        self.assertEquals('.', chess_board._get_cell('a', 1))
+        self.assertEquals('.', chess_board._get_cell('b', 1))
+        self.assertEquals('K', chess_board._get_cell('c', 1))
+        self.assertEquals('R', chess_board._get_cell('d', 1))
+        self.assertEquals('.', chess_board._get_cell('e', 1))    
 

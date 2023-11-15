@@ -135,7 +135,7 @@ def validate_castle(move: Move, chess_board: ChessBoard, move_history: List[Move
 
     for column in range(ord(starting_cell[0]) + 1, ord(ending_cell[0])):
         if abs(ord(cell_from[0]) - column) <= 2:
-            checked_cell = tuple([chr(column)], starting_cell[1])
+            checked_cell = tuple([chr(column), starting_cell[1]])
             if chess_board.get_cell(checked_cell) != '.':
                 raise IllegalMoveException(
                     'There are pieces in the way, you cannot castle!')

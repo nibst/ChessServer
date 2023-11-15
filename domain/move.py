@@ -15,15 +15,15 @@ class Move:
 
     def __init__(self, team, from_cell: str, to_cell: str, additional_data: str):
 
-        if len(from_cell) != 2 or not from_cell[0].isnumeric() or from_cell[1].isnumeric():
+        if len(from_cell) != 2 or from_cell[0].isnumeric() or not from_cell[1].isnumeric():
             raise IllegalMoveException(f'Invalid move origin: {from_cell}')
 
-        if len(to_cell) != 2 or not to_cell[0].isnumeric() or to_cell[1].isnumeric():
+        if len(to_cell) != 2 or to_cell[0].isnumeric() or not to_cell[1].isnumeric():
             raise IllegalMoveException(f'Invalid move destination: {to_cell}')
 
         self.team = team
-        self.from_cell = tuple([int(from_cell[0]), from_cell[1].lower()])
-        self.to_cell = tuple([int(to_cell[0]), to_cell[1].lower()])
+        self.from_cell = tuple([from_cell[0].lower(), int(from_cell[1])])
+        self.to_cell = tuple([ to_cell[0].lower(), int(to_cell[1])])
         self.additional_data = additional_data
 
     def get_team(self) -> str:

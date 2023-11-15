@@ -11,22 +11,20 @@ def create_castle_steps(move: Move) -> Callable[[ChessBoard], List[Move]]:
 
     cell_from = move.get_cell_from()
     cell_to = move.get_cell_to()
-    column_diff = ord(cell_from[1]) - ord(cell_to[1])
+    column_diff = ord(cell_from[0]) - ord(cell_to[0])
     king_direction = int(column_diff/abs(column_diff))
-    king_final_position = str(
-        cell_from[0]) + chr(ord(cell_from[1]) - (2 * king_direction))
-    rook_final_position = str(
-        cell_to[0]) + chr(ord(king_final_position[1]) + king_direction)
+    king_final_position =  chr(ord(cell_from[0]) - (2 * king_direction)) + str(cell_from[1])
+    rook_final_position = chr(ord(king_final_position[0]) + king_direction) + str(cell_to[1])
 
     king_move = Move(
         move.get_team(),
-        str(cell_from[0]) + cell_from[1],
+        cell_from[0] + str(cell_from[1]),
         king_final_position,
         None
     )
     rook_move = Move(
         move.get_team(),
-        str(cell_to[0]) + cell_to[1],
+        cell_to[0] + str(cell_to[1]),
         rook_final_position,
         None
     )
