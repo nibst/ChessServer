@@ -96,7 +96,8 @@ def create_il_vaticano_steps(move: Move) -> Callable[[ChessBoard], List[Move]]:
     if cell_from[1] == cell_to[1]:
         is_horizontal = True
 
-
+    raise NotImplementedError()
+    
     def perform_il_vaticano(chess_board: ChessBoard) -> List[Move]:
         pass
 
