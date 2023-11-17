@@ -151,6 +151,7 @@ def validate_en_passant(move: Move, chess_board: ChessBoard, move_history: List[
     2. Captured pawn moved two squares in one move
     3. Captured pawn must have moved in the previous move
     """
+
     raise NotImplementedError()
 
 
@@ -160,4 +161,11 @@ def validate_pawn_promotion(move: Move, chess_board: ChessBoard, move_history: L
     1. Pawn must be reaching last row
     2. Chosen piece must be provided in the move's additional data
     """
+
     raise NotImplementedError()
+
+def validate_il_vaticano(move: Move, chess_board: ChessBoard, move_history: List[Move]):
+    """
+    Il Vaticano conditions:
+    1. Two enemy pawns between two ally bishops vertically or horizontally
+    """

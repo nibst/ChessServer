@@ -28,7 +28,7 @@ class TestCastleConstructor(unittest.TestCase):
         chess_board._set_cell('f', 8,'.')
         chess_board._set_cell('g', 8, '.')
         castle_move = Move(TeamEnum.BLACKS.value, "e8", "h8", None)
-
+        
         execute_function = create_castle_steps(castle_move)
         execute_function(chess_board)
         self.assertEquals('.', chess_board._get_cell('e', 8))

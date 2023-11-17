@@ -20,6 +20,21 @@
             "validator_func": "validate_pawn_promotion",
             "creator_func": "create_pawn_promotion_steps",
             "enabled": true
+        },
+        {
+            "name": "Il Vaticano",
+            "identifier_func": "is_il_vaticano",
+            "validator_func": "validate_il_vaticano",
+            "creator_func": "create_il_vaticano_steps",
+            "enabled": true
+        },
+        {
+            "name": "Siberian Swipe",
+            "identifier_func": "is_siberian_swipe",
+            "validator_func": "validate_siberian_swipe",
+            "creator_func": "create_siberian_swipe_steps",
+            "enabled": false
         }
+        
     ]
 }

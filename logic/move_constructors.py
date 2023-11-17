@@ -74,3 +74,32 @@ def create_pawn_promotion_steps(move: Move) -> Callable[[ChessBoard], List[Move]
     1. change piece to 
     """
     raise NotImplementedError()
+
+def create_il_vaticano_steps(move: Move) -> Callable[[ChessBoard], List[Move]]:
+    """
+    1. Move bishop (bottom or right bishop) to adjacent captured pawn position 
+    2. Move bishop (bottom or right bishop) to the other adjacent pawn position
+    3. Move the bishop that was not moved to the other bishops original position
+    4. Move the bishop that has captured the pawns to the original position of the bishop in previous step
+
+    Steps 1-2, capture the pawns
+    Steps 3-4, swap bishops original position ()
+    """
+    cell_from = move.get_cell_from()
+    cell_to = move.get_cell_to()    
+    is_vertical:bool = False
+    is_horizontal:bool = False
+    #check if is vertical il vaticano
+    if cell_from[0] == cell_to[0]:
+        is_vertical = True
+    #check if is horizontal il vaticano
+    if cell_from[1] == cell_to[1]:
+        is_horizontal = True
+
+
+    def perform_il_vaticano(chess_board: ChessBoard) -> List[Move]:
+        pass
+
+    return perform_il_vaticano
+
+
