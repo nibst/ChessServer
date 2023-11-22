@@ -1,9 +1,11 @@
+import copy
 from typing import List, Tuple
 from domain.chess_board import ChessBoard
 from domain.move import Move
 from domain.teams import TeamEnum
 from exception.illegal_move_exception import IllegalMoveException
-
+from exception.no_king_exception import NoKingException
+from logic.move_constructors import create_en_passant_steps
 
 def _is_safe_diagonally(cell: Tuple[str, int], team: str, chess_board: ChessBoard) -> bool:
     diagonal_threats = TeamEnum[team].get_diagonal_threats()
@@ -93,6 +95,26 @@ def is_in_check(cell: Tuple[str, int], team: str, chess_board: ChessBoard) -> bo
         and _is_safe_from_pawns(cell, team, chess_board)
         and _is_safe_from_knights(cell, team, chess_board))
 
+def _get_king_cell(team:str, chess_board:ChessBoard):
+    if team == TeamEnum.BLACKS.value:
+        king_piece = 'k'
+    else:
+        king_piece = 'K'
+    columns = ['a','b','c','d','e','f','g']
+    rows = [1,2,3,4,5,6,7,8]
+    for row in rows:
+        for column in columns:
+            cell = tuple([column,row])
+            piece = chess_board.get_cell(cell)
+            if piece == king_piece:
+                return cell
+        
+    #I dont know if is possible to get here
+    raise NoKingException(f'There is no {team} king on the board')
+
+def is_king_in_check(team, chess_board:ChessBoard):
+    cell = _get_king_cell(team,chess_board)
+    return is_in_check(cell,team,chess_board)
 
 def validate_castle(move: Move, chess_board: ChessBoard, move_history: List[Move]):
     """
@@ -150,9 +172,27 @@ def validate_en_passant(move: Move, chess_board: ChessBoard, move_history: List[
     1. Capturing pawn moved 3 rank forward
     2. Captured pawn moved two squares in one move
     3. Captured pawn must have moved in the previous move
+    (I think the first condition will be a consequence of the second and third condition)
     """
+    cell_from = move.get_cell_from()
+    cell_to = move.get_cell_to()
+    captured_pawn_position:Tuple[str,int] = tuple([cell_to[0],  cell_from[1]]) 
+    try:
+        last_move = move_history[-1]
+    except:
+        raise IllegalMoveException('Pawn to be captured did not move in the previous move')
+    if last_move.get_cell_to() != captured_pawn_position:
+        raise IllegalMoveException('Pawn to be captured did not move in the previous move')
+    moved_squares_by_captured_pawn_last_move = abs(last_move.get_cell_to()[1] - last_move.get_cell_from()[1])
+    captured_pawn_moved_two_squares:bool = moved_squares_by_captured_pawn_last_move == 2
+    if not captured_pawn_moved_two_squares:
+        raise IllegalMoveException('Pawn to be captured did not move two squares in previous move')
+    chess_board_after_en_passant = copy.deepcopy(chess_board) 
+    execute_en_passant = create_en_passant_steps(move)
+    execute_en_passant(chess_board_after_en_passant)
+    if is_king_in_check(move.get_team(),chess_board_after_en_passant):
+        raise IllegalMoveException('You will put yourself in check, you cannot en passant')
 
-    raise NotImplementedError()
 
 
 def validate_pawn_promotion(move: Move, chess_board: ChessBoard, move_history: List[Move]):
