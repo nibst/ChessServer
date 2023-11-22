@@ -22,8 +22,8 @@ class ChessBoard:
 
     board: List[List[str]]
 
-    def __init__(self):
-        rows = DEFAULT_CHESS_BOARD.split(';')
+    def __init__(self, board = DEFAULT_CHESS_BOARD):
+        rows = board.split(';')
         self.board = [[cell.strip() for cell in row.split(' ')]
                       for row in rows]
 
