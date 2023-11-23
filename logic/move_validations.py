@@ -208,17 +208,16 @@ def validate_pawn_promotion(move: Move, chess_board: ChessBoard, move_history: L
     cell_to = move.get_cell_to()
     is_reaching_last_row = (direction == 1 and cell_to[1] == 8) \
                         or (direction == -1 and cell_to[1] == 1)
-    
     if not is_reaching_last_row:
         raise IllegalMoveException('Cannot promote without being on last row')
     piece_to_promote = move.get_additional_data()
-    if piece_to_promote == None or piece_to_promote not in possible_promotion_pieces :
+    if piece_to_promote == None or piece_to_promote.lower() not in possible_promotion_pieces :
         raise IllegalMoveException('Cannot promote to a non-existing piece')
     is_promoting_to_opposite_team = (piece_to_promote.isupper() and move.get_team() != TeamEnum.WHITES.value) \
                                  or (piece_to_promote.islower() and move.get_team() != TeamEnum.BLACKS.value)
     if is_promoting_to_opposite_team:
         raise IllegalMoveException('Cannot promote to piece of opposite team')
-    
+
 def validate_il_vaticano(move: Move, chess_board: ChessBoard, move_history: List[Move]):
     """
     Il Vaticano conditions:
