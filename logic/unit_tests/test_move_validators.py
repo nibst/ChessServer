@@ -334,5 +334,30 @@ class TestEnPassantValidate(unittest.TestCase):
         try:
             validate_en_passant(move, chess_board, move_history)
         except IllegalMoveException as exception:
-            self.fail(f"validate_en_passant raised {type(exception).__name__}")
+            self.fail(f'validate_en_passant raised {type(exception).__name__}')
                
+
+class TestPawnPromotionValidate(unittest.TestCase):
+
+    def test_correct_pawn_promotion_queen(self):
+        chess_board = ChessBoard()
+        chess_board._set_cell('a',7,'P')
+        chess_board._set_cell('a',8,'.')
+        move = Move(TeamEnum.WHITES.value, 'a7', 'a8', 'Q')
+
+        try:
+            validate_pawn_promotion(move, chess_board, [])
+        except IllegalMoveException as exception:
+            self.fail(f'validate_pawn_promotion raised {type(exception).__name__} with the message: {exception}')
+               
+
+    def test_pawn_promoting_to_opposite_team(self):
+        chess_board = ChessBoard()
+        chess_board._set_cell('a',2,'p')
+        chess_board._set_cell('a',1,'.')
+        move = Move(TeamEnum.BLACKS.value, 'a2', 'a1', 'Q')
+
+        with self.assertRaises(IllegalMoveException):
+            validate_pawn_promotion(move, chess_board, [])
+
+
