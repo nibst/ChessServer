@@ -71,9 +71,17 @@ def create_en_passant_steps(move: Move) -> Callable[[ChessBoard], List[Move]]:
 
 def create_pawn_promotion_steps(move: Move) -> Callable[[ChessBoard], List[Move]]:
     """
-    1. change piece to 
+    1. Move pawn to destination position
+    2. Replace pawn with piece in move.additional_data
     """
-    raise NotImplementedError()
+
+    pawn_promotion = move
+    def perform_pawn_promotion(chess_board: ChessBoard) -> List[Move]:
+        chess_board.apply_move(pawn_promotion)
+        chess_board.set_cell(pawn_promotion.get_cell_to(),pawn_promotion.get_additional_data())
+        return [pawn_promotion]
+    
+    return perform_pawn_promotion
 
 def create_il_vaticano_steps(move: Move) -> Callable[[ChessBoard], List[Move]]:
     """

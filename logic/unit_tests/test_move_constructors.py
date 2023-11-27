@@ -140,7 +140,7 @@ class TestPawnPromotionConstruction(unittest.TestCase):
         pawn_promotion_move = Move(TeamEnum.WHITES.value, "b7", "b8", 'R')
         execute_function = create_pawn_promotion_steps(pawn_promotion_move)
         execute_function(chessboard)
-        self.assertEqual('Q',chessboard._get_cell('b',8))
+        self.assertEqual('R',chessboard._get_cell('b',8))
 
     def test_black_promote_going_straight_foward(self):
         chessboard = ChessBoard()
