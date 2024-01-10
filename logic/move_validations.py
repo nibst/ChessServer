@@ -206,6 +206,7 @@ def validate_pawn_promotion(move: Move, chess_board: ChessBoard, move_history: L
     possible_promotion_pieces = ['q','r','b','n']
     direction = 1 if move.get_team() == TeamEnum.WHITES.value else -1
     cell_to = move.get_cell_to()
+    cell_from = move.get_cell_from()
     is_reaching_last_row = (direction == 1 and cell_to[1] == 8) \
                         or (direction == -1 and cell_to[1] == 1)
     if not is_reaching_last_row:
@@ -217,6 +218,9 @@ def validate_pawn_promotion(move: Move, chess_board: ChessBoard, move_history: L
                                  or (piece_to_promote.islower() and move.get_team() != TeamEnum.BLACKS.value)
     if is_promoting_to_opposite_team:
         raise IllegalMoveException('Cannot promote to piece of opposite team')
+    is_not_a_pawn = chess_board.get_cell(cell_from).lower() != 'p' 
+    if is_not_a_pawn:
+        raise IllegalMoveException('Cannot promote using a piece that is not a pawn')   
 
 def validate_il_vaticano(move: Move, chess_board: ChessBoard, move_history: List[Move]):
     """

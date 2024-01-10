@@ -350,8 +350,18 @@ class TestPawnPromotionValidate(unittest.TestCase):
         except IllegalMoveException as exception:
             self.fail(f'validate_pawn_promotion raised {type(exception).__name__} with the message: {exception}')
                
+    def test_correct_pawn_promotion_horse(self):
+        chess_board = ChessBoard()
+        chess_board._set_cell('a',2,'p')
+        chess_board._set_cell('a',1,'.')
+        move = Move(TeamEnum.BLACKS.value, 'a2', 'a1', 'n')
 
-    def test_pawn_promoting_to_opposite_team(self):
+        try:
+            validate_pawn_promotion(move, chess_board, [])
+        except IllegalMoveException as exception:
+            self.fail(f'validate_pawn_promotion raised {type(exception).__name__} with the message: {exception}')
+
+    def test_cannot_promote_to_opposite_team(self):
         chess_board = ChessBoard()
         chess_board._set_cell('a',2,'p')
         chess_board._set_cell('a',1,'.')
@@ -360,4 +370,36 @@ class TestPawnPromotionValidate(unittest.TestCase):
         with self.assertRaises(IllegalMoveException):
             validate_pawn_promotion(move, chess_board, [])
 
+    def test_not_specified_promotion_piece(self):
+        chess_board = ChessBoard()
+        chess_board._set_cell('a',7,'P')
+        chess_board._set_cell('a',8,'.')
+        move = Move(TeamEnum.WHITES.value, 'a7', 'a8', None)
 
+        with self.assertRaises(IllegalMoveException):
+            validate_pawn_promotion(move, chess_board, [])
+
+    def test_not_on_last_row(self):
+        chess_board = ChessBoard()
+        chess_board._set_cell('a',3,'p')
+        chess_board._set_cell('a',2,'.')
+        move = Move(TeamEnum.BLACKS.value, 'a3', 'a2', 'q')
+        with self.assertRaises(IllegalMoveException):
+            validate_pawn_promotion(move, chess_board, [])
+    
+    def test_not_a_valid_promotion_piece(self):
+        chess_board = ChessBoard()
+        chess_board._set_cell('a',3,'p')
+        chess_board._set_cell('a',2,'.')
+        move = Move(TeamEnum.BLACKS.value, 'a3', 'a2', 'k')
+        with self.assertRaises(IllegalMoveException):
+            validate_pawn_promotion(move, chess_board, [])
+
+    def test_cannot_promote_without_pawn(self):
+        chess_board = ChessBoard()
+        chess_board._set_cell('a',7,'R')
+        chess_board._set_cell('a',8,'.')
+        move = Move(TeamEnum.WHITES.value, 'a7', 'a8', 'Q')
+
+        with self.assertRaises(IllegalMoveException):
+            validate_pawn_promotion(move, chess_board, [])
