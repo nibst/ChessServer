@@ -23,7 +23,7 @@ class Game:
 
     def validate_move(self, move: Move):
         for validate_function in get_validations_for(move, self.chess_board):
-            validate_function(move, self.chess_board)
+            validate_function(move, self.chess_board, self.move_history)
 
     def make_move(self, move: Move):
 

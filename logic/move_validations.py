@@ -227,3 +227,16 @@ def validate_il_vaticano(move: Move, chess_board: ChessBoard, move_history: List
     Il Vaticano conditions:
     1. Two enemy pawns between two ally bishops vertically or horizontally
     """
+
+def validate_queen_move(move: Move, chess_board: ChessBoard, move_history: List[Move]):
+    raise NotImplementedError
+def validate_horse_move(move: Move, chess_board: ChessBoard, move_history: List[Move]):
+    raise NotImplementedError
+def validate_rook_move(move: Move, chess_board: ChessBoard, move_history: List[Move]):
+    raise NotImplementedError
+def validate_bishop_move(move: Move, chess_board: ChessBoard, move_history: List[Move]):
+    raise NotImplementedError
+def validate_pawn_move(move: Move, chess_board: ChessBoard, move_history: List[Move]):
+    raise NotImplementedError
+def validate_king_move(move: Move, chess_board: ChessBoard, move_history: List[Move]):
+    raise NotImplementedError
